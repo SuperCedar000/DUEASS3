@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -11,10 +13,14 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI victoryText;
+    public TextMeshProUGUI taskText;         // ✅ 开场任务提示文本
 
-    public AudioClip pickupSound; // ✅ 引用音效
-    private AudioSource audioSource; // ✅ 音效播放器组件
+    public AudioClip pickupSound;
+    public AudioClip victorySound;
 
+    public Button restartButton;
+
+    private AudioSource audioSource;
     private Rigidbody rb;
     private bool isGrounded;
     private int score = 0;
@@ -23,13 +29,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>(); // ✅ 获取 AudioSource 组件
+        audioSource = GetComponent<AudioSource>();
 
-        // 限制角色不翻倒
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         UpdateScoreText();
         victoryText.gameObject.SetActive(false);
+
+        // ❌ 不再隐藏按钮，让按钮一开始就显示
+        // if (restartButton != null)
+        //     restartButton.gameObject.SetActive(false);
+
+        // ✅ 显示开场任务提示文本
+        if (taskText != null)
+        {
+            StartCoroutine(ShowTaskText());
+        }
     }
 
     void Update()
@@ -89,7 +104,6 @@ public class PlayerController : MonoBehaviour
             UpdateScoreText();
             Destroy(other.gameObject);
 
-            // ✅ 播放音效
             if (pickupSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(pickupSound);
@@ -115,6 +129,15 @@ public class PlayerController : MonoBehaviour
         hasWon = true;
         victoryText.gameObject.SetActive(true);
         victoryText.text = "Victory!";
+
+        if (victorySound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(victorySound);
+        }
+
+        if (restartButton != null)
+            restartButton.gameObject.SetActive(true);
+
         StartCoroutine(HideVictoryText());
     }
 
@@ -122,5 +145,18 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         victoryText.gameObject.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // ✅ 协程：显示任务提示文本
+    IEnumerator ShowTaskText()
+    {
+        taskText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        taskText.gameObject.SetActive(false);
     }
 }
