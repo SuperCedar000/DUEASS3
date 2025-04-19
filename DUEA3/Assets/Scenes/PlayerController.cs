@@ -12,14 +12,20 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI victoryText;
 
+    public AudioClip pickupSound; // ✅ 引用音效
+    private AudioSource audioSource; // ✅ 音效播放器组件
+
     private Rigidbody rb;
     private bool isGrounded;
     private int score = 0;
-    private bool hasWon = false; // ✅ 新增变量，标记是否已经胜利
+    private bool hasWon = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>(); // ✅ 获取 AudioSource 组件
+
+        // 限制角色不翻倒
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         UpdateScoreText();
@@ -59,11 +65,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);
+            transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime); // Q 左转
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime); // E 右转
         }
     }
 
@@ -83,7 +89,13 @@ public class PlayerController : MonoBehaviour
             UpdateScoreText();
             Destroy(other.gameObject);
 
-            if (score == 7 && !hasWon) // ✅ 只在刚好收集到7个时调用
+            // ✅ 播放音效
+            if (pickupSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(pickupSound);
+            }
+
+            if (score == 7 && !hasWon)
             {
                 ShowVictory();
             }
@@ -100,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     void ShowVictory()
     {
-        hasWon = true; // ✅ 标记胜利，防止重复调用
+        hasWon = true;
         victoryText.gameObject.SetActive(true);
         victoryText.text = "Victory!";
         StartCoroutine(HideVictoryText());
