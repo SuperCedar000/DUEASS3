@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Sonwman
+  - Ground
+  - Collectible
   layers:
   - Default
   - TransparentFX
