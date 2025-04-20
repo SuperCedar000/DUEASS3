@@ -9,6 +9,7 @@ TagManager:
   - Collectible
   - Coin
   - PlayerEyes
+  - VictoryZone
   layers:
   - Default
   - TransparentFX
