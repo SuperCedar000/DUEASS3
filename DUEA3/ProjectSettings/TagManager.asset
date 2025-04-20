@@ -5,8 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Sonwman
-  - Ground
   - Collectible
+  - PlayerEyes
+  - SilverTrophy
+  - BronzeTrophy
+  - GoldTrophy
   layers:
   - Default
   - TransparentFX
