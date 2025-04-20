@@ -6,12 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0.unity
-    guid: 7dc80eb265dfd284e843596142b16ee0
-  - enabled: 1
     path: Assets/Scenes/1.unity
     guid: c750e9f5949469841a06a8a676ecfd39
   - enabled: 1
     path: Assets/Scenes/3.unity
     guid: 402f199bd45ebed4ea9145052b2589d8
+  - enabled: 1
+    path: Assets/Scenes/2.unity
+    guid: 7c632c0cca0cae74da2b0482805dc758
+  - enabled: 1
+    path: Assets/Scenes/4.unity
+    guid: e98eb367836f57b4994a1986b4b6a602
+  - enabled: 1
+    path: Assets/Scenes/5.unity
+    guid: 11c42d86150dd0641aa5d214581cd54f
+  - enabled: 1
+    path: Assets/Scenes/0.unity
+    guid: 7dc80eb265dfd284e843596142b16ee0
+  - enabled: 1
+    path: Assets/Wang Xiao/Scenes/6.unity
+    guid: a2f3816c9782245468ecd6dcb7c60c0f
   m_configObjects: {}
