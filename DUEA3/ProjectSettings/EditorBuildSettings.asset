@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Wang Xiao/Scenes/6.unity
     guid: a2f3816c9782245468ecd6dcb7c60c0f
+  - enabled: 1
+    path: Assets/xuan/xuan1.unity
+    guid: 2cb45c20a82073d4ebfee1c2929f098b
   m_configObjects: {}
