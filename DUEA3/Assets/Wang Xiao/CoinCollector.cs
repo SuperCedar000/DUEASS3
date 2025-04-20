@@ -1,17 +1,28 @@
 using UnityEngine;
+using TMPro;
 
 public class CoinCollector : MonoBehaviour
 {
-    public int coinCount = 0;
+    public TMP_Text coinText;  // 拖入 UI 文本
+    private int coinCount = 0;
+
+    private void Start()
+    {
+        UpdateCoinUI();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
         {
             coinCount++;
-            Destroy(other.gameObject);  // 收集金币后移除金币
-
-            Debug.Log("收集金币！当前金币数：" + coinCount);
+            UpdateCoinUI();
+            Destroy(other.gameObject);
         }
+    }
+
+    private void UpdateCoinUI()
+    {
+        coinText.text = "Coin " + coinCount;
     }
 }
